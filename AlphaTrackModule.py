@@ -1,190 +1,48 @@
-import cv2 as cv
-
 X, Y, Z = 0, 1, 2
-
-# class Finger:
-#     THUMB, INDEX, MIDDLE, RING, PINKY = list(range(5))
-
 rightTipIds = [4, 8, 12, 16, 20]
 
-def readAlpha(lmList):
-    pos = initVals(lmList)
-    return '_' if isSpace(lmList, pos) \
-        else 'A' if isA(lmList, pos) \
-        else 'B' if isB(lmList, pos) \
-        else 'C' if isC(lmList, pos) \
-        else 'D' if isD(lmList, pos) \
-        else 'E' if isE(lmList, pos) \
-        else 'F' if isF(lmList, pos) \
-        else 'G' if isG(lmList, pos) \
-        else 'H' if isH(lmList, pos) \
-        else 'I' if isI(lmList, pos) \
-        else 'J' if isJ(lmList, pos) \
-        else 'K' if isK(lmList, pos) \
-        else 'L' if isL(lmList, pos) \
-        else 'M' if isM(lmList, pos) \
-        else 'N' if isN(lmList, pos) \
-        else 'O' if isO(lmList, pos) \
-        else 'P' if isP(lmList, pos) \
-        else 'Q' if isQ(lmList, pos) \
-        else 'R' if isR(lmList, pos) \
-        else 'S' if isS(lmList, pos) \
-        else 'T' if isT(lmList, pos) \
-        else 'U' if isU(lmList, pos) \
-        else 'V' if isV(lmList, pos) \
-        else 'W' if isW(lmList, pos) \
-        else 'X' if isX(lmList, pos) \
-        else 'Y' if isY(lmList, pos) \
-        else 'Z' if isZ(lmList, pos) \
+def readAlpha(lm_list):
+    pos = initVals(lm_list)
+    return '_' if isSpace(lm_list, pos) \
+        else 'A' if isA(lm_list, pos) \
+        else 'B' if isB(lm_list, pos) \
+        else 'C' if isC(lm_list, pos) \
+        else 'D' if isD(lm_list, pos) \
+        else 'E' if isE(lm_list, pos) \
+        else 'F' if isF(lm_list, pos) \
+        else 'G' if isG(lm_list, pos) \
+        else 'H' if isH(lm_list, pos) \
+        else 'I' if isI(lm_list, pos) \
+        else 'J' if isJ(lm_list, pos) \
+        else 'K' if isK(lm_list, pos) \
+        else 'L' if isL(lm_list, pos) \
+        else 'M' if isM(lm_list, pos) \
+        else 'N' if isN(lm_list, pos) \
+        else 'O' if isO(lm_list, pos) \
+        else 'P' if isP(lm_list, pos) \
+        else 'Q' if isQ(lm_list, pos) \
+        else 'R' if isR(lm_list, pos) \
+        else 'S' if isS(lm_list, pos) \
+        else 'T' if isT(lm_list, pos) \
+        else 'U' if isU(lm_list, pos) \
+        else 'V' if isV(lm_list, pos) \
+        else 'W' if isW(lm_list, pos) \
+        else 'X' if isX(lm_list, pos) \
+        else 'Y' if isY(lm_list, pos) \
+        else 'Z' if isZ(lm_list, pos) \
         else ''
 
-# def isA(lmList, pos):
-#     # print([x[0] for x in lmList])
-#     # Thumb
-#     if lmList[rightTipIds[0]][2] > lmList[rightTipIds[0] - 1][2]:
-#         # print('thumb')
-#         return False
-#     if lmList[rightTipIds[0]][1] < lmList[rightTipIds[1] - 1][1]:
-#         return False
-#     # 4 Fingers
-#     for id in range(1, 5):
-#         if lmList[rightTipIds[id]][2] < lmList[rightTipIds[id] - 3][2]:
-#             # print(id)
-#             return False
-#     return True
 
-# def isB(lmList, pos):
-#     if lmList[rightTipIds[0]][1] > lmList[rightTipIds[0] - 1][1]:
-#         return False
-#     for id in range(1, 5):
-#         if lmList[rightTipIds[id]][2] > lmList[rightTipIds[id] - 2][2]:
-#             return False
-#     return True
-
-# def isC(lmList, pos):
-#     if lmList[rightTipIds[0]][1] < lmList[rightTipIds[0] - 1][1]:
-#         return False
-#     for id in range(1, 5):
-#         if lmList[rightTipIds[id]][1] < lmList[rightTipIds[id] - 2][1]:
-#             return False
-#     return True
-
-# def isD(lmList, pos):
-#     if lmList[rightTipIds[0]][1] > lmList[rightTipIds[0] - 1][1]:
-#         return False
-#     if lmList[rightTipIds[1]][2] > lmList[rightTipIds[1] - 2][2]:
-#         return False
-#     for id in range(2, 5):
-#         if lmList[rightTipIds[id]][2] < lmList[rightTipIds[id] - 2][2]:
-#             return False
-#     return True
-
-# def isE(lmList, pos):
-#     if lmList[rightTipIds[0]][1] > lmList[rightTipIds[0] - 1][1]:
-#         return False
-#     if lmList[rightTipIds[0]][2] < lmList[rightTipIds[1] - 1][2]:
-#         return False
-#     for id in range(1, 5):
-#         if lmList[rightTipIds[id]][2] < lmList[rightTipIds[id] - 2][2]:
-#             return False
-#     return True
-
-# def isF(lmList, pos):
-#     if lmList[rightTipIds[0]][1] > lmList[rightTipIds[0] - 1][1]:
-#         return False
-#     if lmList[rightTipIds[1]][2] < lmList[rightTipIds[1] - 2][2]:
-#         return False
-#     for id in range(2, 5):
-#         if lmList[rightTipIds[id]][2] > lmList[rightTipIds[id] - 2][2]:
-#             return False
-#     return True
-
-# def isG(lmList, pos):
-#     if lmList[rightTipIds[0]][1] > lmList[rightTipIds[0] - 1][1]:
-#         return False
-#     if lmList[rightTipIds[1]][1] > lmList[rightTipIds[1] - 2][1]:
-#         return False
-#     for id in range(2, 5):
-#         if lmList[rightTipIds[id]][1] < lmList[rightTipIds[id] - 2][1]:
-#             return False
-#     return True
-
-# def isH(lmList, pos):
-#     if lmList[rightTipIds[0]][1] > lmList[rightTipIds[0] - 1][1]:
-#         return False
-#     if lmList[rightTipIds[1]][1] > lmList[rightTipIds[1] - 2][1]:
-#         return False
-#     if lmList[rightTipIds[2]][1] > lmList[rightTipIds[2] - 2][1]:
-#         return False
-#     for id in range(3, 5):
-#         if lmList[rightTipIds[id]][1] < lmList[rightTipIds[id] - 2][1]:
-#             return False
-#     return True
-
-# def isI(lmList, pos):
-#     if lmList[rightTipIds[0]][2] > lmList[rightTipIds[0] - 1][2]:
-#         return False
-#     for id in range(1, 4):
-#         if lmList[rightTipIds[id]][2] < lmList[rightTipIds[id] - 3][2]:
-#             return False
-#     if lmList[rightTipIds[4]][2] > lmList[rightTipIds[4] - 1][2]:
-#         return False
-#     return True
-
-# def isJ(lmList, pos): #GET BACK TO (Issue similar with I)-------------------------------------------------------------
-#     if lmList[rightTipIds[0]][1] > lmList[rightTipIds[0] - 1][1]:
-#         return False
-#     for id in range(1, 4):
-#         if lmList[rightTipIds[id]][1] < lmList[rightTipIds[id] - 2][1]:
-#             return False
-#     if lmList[rightTipIds[4]][1] > lmList[rightTipIds[4] - 2][1]:
-#         return False
-#     return True
-
-# def isK(lmList, pos):
-#     if lmList[rightTipIds[0]][2] > lmList[rightTipIds[0] - 1][2]:
-#         return False
-#     if lmList[rightTipIds[1]][2] > lmList[rightTipIds[1] - 1][2]:
-#         return False
-#     if lmList[rightTipIds[2]][2] > lmList[rightTipIds[2] - 1][2]:
-#         return False
-#     for id in range(3, 5):
-#         if lmList[rightTipIds[id]][2] < lmList[rightTipIds[id] - 3][2]:
-#             return False
-#     return True
-
-# def isL(lmList, pos):
-#     if lmList[rightTipIds[0]][1] < lmList[rightTipIds[0] - 1][1]:
-#         return False
-#     if lmList[rightTipIds[1]][2] > lmList[rightTipIds[1] - 1][2]:
-#         return False
-#     for id in range(2, 5):
-#         if lmList[rightTipIds[id]][2] < lmList[rightTipIds[id] - 3][2]:
-#             return False
-#     return True
-
-# def isM(lmList, pos):
-#     if lmList[rightTipIds[0]][2] > lmList[rightTipIds[4] - 1][2]:
-#         return False
-#     for id in range(1, 5):
-#         if lmList[rightTipIds[id]][2] < lmList[rightTipIds[id] - 2][2]:
-#             return False
-#         if lmList[rightTipIds[0]][2] < lmList[rightTipIds[id] - 2][2]:
-#             return False
-#     if lmList[rightTipIds[4]][2] > lmList[rightTipIds[4] - 2][2]:
-#         return False
-#     return True
-
-def initVals(lmList):
-    fx = tuple(lmList[rightTipIds[i]-2][1] - lmList[rightTipIds[i]][1] for i in range(5))
-    fy = tuple(lmList[rightTipIds[i]-2][2] - lmList[rightTipIds[i]][2] for i in range(5))
+def initVals(lm_list):
+    fx = tuple(lm_list[rightTipIds[i] - 2][1] - lm_list[rightTipIds[i]][1] for i in range(5))
+    fy = tuple(lm_list[rightTipIds[i] - 2][2] - lm_list[rightTipIds[i]][2] for i in range(5))
     diff = abs(sum(fy)) - abs(sum(fx))
     orientation = 1 if diff > 0 else 0
     # orientation = Z if abs(diff) < 70 else Y if diff > 0 else X
     #print(orientation)
     return (fx, fy, orientation)
 
-def isSpace(lmList, pos):
+def isSpace(lm_list, pos):
     if pos[Z] == X:
         return False
     if pos[Y][0] < 0:
@@ -192,26 +50,26 @@ def isSpace(lmList, pos):
     for id in range(1, 5):
         if pos[Y][id] < 0:
             return False
-        if lmList[rightTipIds[0]][1] < lmList[rightTipIds[id]][1]:
+        if lm_list[rightTipIds[0]][1] < lm_list[rightTipIds[id]][1]:
             return False
     return True
 
-def isA(lmList, pos):
+def isA(lm_list, pos):
     # print("X: {} Y: {}".format(pos[0], pos[1]))
     if pos[Z] == X:
         return False
     if pos[Y][0] < 0:
         return False
-    if lmList[rightTipIds[0]][1] < lmList[rightTipIds[1] - 1][1]:
+    if lm_list[rightTipIds[0]][1] < lm_list[rightTipIds[1] - 1][1]:
         return False
-    if lmList[rightTipIds[0]-2][2] < lmList[rightTipIds[3]][2]:
+    if lm_list[rightTipIds[0] - 2][2] < lm_list[rightTipIds[3]][2]:
         return False
     for id in range(1, 5):
-        if lmList[rightTipIds[id]][2] < lmList[rightTipIds[id] - 3][2]:
+        if lm_list[rightTipIds[id]][2] < lm_list[rightTipIds[id] - 3][2]:
             return False
     return True
 
-def isB(lmList, pos):
+def isB(lm_list, pos):
     if pos[Z] == X:
         return False
     if pos[X][0] < 0:
@@ -221,7 +79,7 @@ def isB(lmList, pos):
             return False
     return True
 
-def isC(lmList, pos):
+def isC(lm_list, pos):
     if pos[Z] == Y:
         return False
     if pos[X][0] > 0:
@@ -231,166 +89,166 @@ def isC(lmList, pos):
             return False
     return True
 
-def isD(lmList, pos):
+def isD(lm_list, pos):
     if pos[Z] == X:
         return False
     if pos[X][0] < 0:
         return False
     if pos[Y][1] < 0:
         return False
-    if lmList[rightTipIds[0]][1] < lmList[rightTipIds[2] - 2][1]:
+    if lm_list[rightTipIds[0]][1] < lm_list[rightTipIds[2] - 2][1]:
             return False
-    if lmList[rightTipIds[0]][2] < lmList[rightTipIds[2]][2]:
+    if lm_list[rightTipIds[0]][2] < lm_list[rightTipIds[2]][2]:
             return False
     for id in range(2, 5):
-        if lmList[rightTipIds[id]][2] < lmList[rightTipIds[id] - 2][2]:
+        if lm_list[rightTipIds[id]][2] < lm_list[rightTipIds[id] - 2][2]:
             return False
     return True
 
-def isE(lmList, pos):
+def isE(lm_list, pos):
     if pos[Z] == X:
         return False
     if pos[X][0] < 0:
         return False
     for id in range(1, 5):
-        if lmList[rightTipIds[id]][2] < lmList[rightTipIds[id] - 2][2]:
+        if lm_list[rightTipIds[id]][2] < lm_list[rightTipIds[id] - 2][2]:
             return False
-        if lmList[rightTipIds[0]][2] < lmList[rightTipIds[id] - 1][2]:
+        if lm_list[rightTipIds[0]][2] < lm_list[rightTipIds[id] - 1][2]:
             return False
     return True
 
-def isF(lmList, pos):
+def isF(lm_list, pos):
     if pos[Z] == X:
         return False
     if pos[X][0] < 0:
         return False
-    if lmList[rightTipIds[1]][2] < lmList[rightTipIds[1] - 2][2]:
+    if lm_list[rightTipIds[1]][2] < lm_list[rightTipIds[1] - 2][2]:
         return False
     for id in range(2, 5):
-        if lmList[rightTipIds[id]][2] > lmList[rightTipIds[id] - 2][2]:
+        if lm_list[rightTipIds[id]][2] > lm_list[rightTipIds[id] - 2][2]:
             return False
     return True
 
-def isG(lmList, pos):
+def isG(lm_list, pos):
     if pos[Z] == Y:
         return False
-    if lmList[rightTipIds[1]][1] > lmList[rightTipIds[1] - 2][1]:
+    if lm_list[rightTipIds[1]][1] > lm_list[rightTipIds[1] - 2][1]:
         return False
     for id in range(2, 5):
-        if lmList[rightTipIds[id]][1] < lmList[rightTipIds[id] - 2][1]:
+        if lm_list[rightTipIds[id]][1] < lm_list[rightTipIds[id] - 2][1]:
             return False
     return True
 
-def isH(lmList, pos):
+def isH(lm_list, pos):
     if pos[Z] == Y:
         return False
-    if lmList[rightTipIds[1]][1] > lmList[rightTipIds[1] - 2][1]:
+    if lm_list[rightTipIds[1]][1] > lm_list[rightTipIds[1] - 2][1]:
         return False
-    if lmList[rightTipIds[2]][1] > lmList[rightTipIds[2] - 2][1]:
+    if lm_list[rightTipIds[2]][1] > lm_list[rightTipIds[2] - 2][1]:
         return False
     for id in range(3, 5):
-        if lmList[rightTipIds[id]][1] < lmList[rightTipIds[id] - 2][1]:
+        if lm_list[rightTipIds[id]][1] < lm_list[rightTipIds[id] - 2][1]:
             return False
     return True
 
-def isI(lmList, pos):
+def isI(lm_list, pos):
     if pos[Z] == X:
         return False
     if pos[Y][0] < 0:
         return False
-    if lmList[rightTipIds[0]][1] < lmList[rightTipIds[1] - 1][1]:
+    if lm_list[rightTipIds[0]][1] < lm_list[rightTipIds[1] - 1][1]:
         return False
     for id in range(1, 4):
-        if lmList[rightTipIds[id]][2] < lmList[rightTipIds[id] - 3][2]:
+        if lm_list[rightTipIds[id]][2] < lm_list[rightTipIds[id] - 3][2]:
             return False
-    if lmList[rightTipIds[4]][2] > lmList[rightTipIds[4] - 3][2]:
+    if lm_list[rightTipIds[4]][2] > lm_list[rightTipIds[4] - 3][2]:
             return False
     return True
 
-def isJ(lmList, pos):
+def isJ(lm_list, pos):
     if pos[Z] == Y:
         return False
     if pos[X][0] < 0:
         return False
-    if lmList[rightTipIds[0]][2] > lmList[rightTipIds[1] - 1][2]:
+    if lm_list[rightTipIds[0]][2] > lm_list[rightTipIds[1] - 1][2]:
         return False
     for id in range(1, 4):
-        if lmList[rightTipIds[id]][1] < lmList[rightTipIds[id] - 3][1]:
+        if lm_list[rightTipIds[id]][1] < lm_list[rightTipIds[id] - 3][1]:
             return False
-    if lmList[rightTipIds[4]][1] > lmList[rightTipIds[4] - 3][1]:
+    if lm_list[rightTipIds[4]][1] > lm_list[rightTipIds[4] - 3][1]:
             return False
     return True
 
-def isK(lmList, pos):
+def isK(lm_list, pos):
     if pos[Z] == X:
         return False
     if pos[Y][0] < 0:
         return False
-    if lmList[rightTipIds[0]][1] < lmList[rightTipIds[1]][1]:
+    if lm_list[rightTipIds[0]][1] < lm_list[rightTipIds[1]][1]:
         return False
-    if lmList[rightTipIds[1]][1] < lmList[rightTipIds[2]][1]:
+    if lm_list[rightTipIds[1]][1] < lm_list[rightTipIds[2]][1]:
         return False
     for id in range(0, 3):
-        if lmList[rightTipIds[id]][2] > lmList[rightTipIds[id] - 2][2]:
+        if lm_list[rightTipIds[id]][2] > lm_list[rightTipIds[id] - 2][2]:
             return False
     for id in range(3, 5):
-        if lmList[rightTipIds[id]][2] < lmList[rightTipIds[id] - 3][2]:
+        if lm_list[rightTipIds[id]][2] < lm_list[rightTipIds[id] - 3][2]:
             return False
     return True
 
-def isL(lmList, pos):
+def isL(lm_list, pos):
     if pos[Z] == X:
         return False
     if pos[X][0] > 0:
         return False
     for id in range(1, 2):
-        if lmList[rightTipIds[id]][2] > lmList[rightTipIds[id] - 2][2]:
+        if lm_list[rightTipIds[id]][2] > lm_list[rightTipIds[id] - 2][2]:
             return False
     for id in range(2, 5):
-        if lmList[rightTipIds[id]][2] < lmList[rightTipIds[id] - 3][2]:
+        if lm_list[rightTipIds[id]][2] < lm_list[rightTipIds[id] - 3][2]:
             return False
     return True
 
-def isM(lmList, pos):
+def isM(lm_list, pos):
     if pos[Z] == X:
         return False
-    if lmList[rightTipIds[1]][1] < lmList[rightTipIds[2]][1]:
+    if lm_list[rightTipIds[1]][1] < lm_list[rightTipIds[2]][1]:
         return False
-    if lmList[rightTipIds[0]][1] > lmList[rightTipIds[3]][1]:
+    if lm_list[rightTipIds[0]][1] > lm_list[rightTipIds[3]][1]:
         return False
     for id in range(1, 2):
-        if lmList[rightTipIds[0]][2] < lmList[rightTipIds[id] - 2][2]:
+        if lm_list[rightTipIds[0]][2] < lm_list[rightTipIds[id] - 2][2]:
             return False
     for id in range(1, 4):
-        if lmList[rightTipIds[0]][2] > lmList[rightTipIds[id]][2]:
+        if lm_list[rightTipIds[0]][2] > lm_list[rightTipIds[id]][2]:
             return False
-    if lmList[rightTipIds[0]][2] > lmList[rightTipIds[4] - 1][2]:
+    if lm_list[rightTipIds[0]][2] > lm_list[rightTipIds[4] - 1][2]:
         return False
     return True
 
-def isN(lmList, pos): #NEEDS WORK -------------------------------------------------
+def isN(lm_list, pos): #NEEDS WORK -------------------------------------------------
     if pos[Z] == X:
         return False
     # if pos[Y][0] < 0:
     #     return False
-    # if lmList[rightTipIds[1]][1] < lmList[rightTipIds[2]][1]:
+    # if lm_list[rightTipIds[1]][1] < lm_list[rightTipIds[2]][1]:
     #     return False
-    if lmList[rightTipIds[0]][1] > lmList[rightTipIds[2] - 2][1]:
+    if lm_list[rightTipIds[0]][1] > lm_list[rightTipIds[2] - 2][1]:
         return False
-    if lmList[rightTipIds[0]][1] > lmList[rightTipIds[2]][1]:
+    if lm_list[rightTipIds[0]][1] > lm_list[rightTipIds[2]][1]:
         return False
     for id in range(1, 3):
-        if lmList[rightTipIds[0]][2] < lmList[rightTipIds[id] - 2][2]:
+        if lm_list[rightTipIds[0]][2] < lm_list[rightTipIds[id] - 2][2]:
             return False
     for id in range(1, 3):
-        if lmList[rightTipIds[0]][2] > lmList[rightTipIds[id]][2]:
+        if lm_list[rightTipIds[0]][2] > lm_list[rightTipIds[id]][2]:
             return False
     for id in range(3, 5):
-        if lmList[rightTipIds[0]][2] > lmList[rightTipIds[id] - 1][2]:
+        if lm_list[rightTipIds[0]][2] > lm_list[rightTipIds[id] - 1][2]:
             return False
     return True
 
-def isO(lmList, pos):
+def isO(lm_list, pos):
     if pos[Z] == Y:
         return False
     if pos[X][0] < 0:
@@ -400,18 +258,18 @@ def isO(lmList, pos):
             return False
     return True
 
-def isP(lmList, pos):
+def isP(lm_list, pos):
     if pos[Z] == Y:
         return False
     for id in range(0, 3):
-        if lmList[rightTipIds[id]][1] < lmList[rightTipIds[id] - 2][1]:
+        if lm_list[rightTipIds[id]][1] < lm_list[rightTipIds[id] - 2][1]:
             return False
     for id in range(3, 5):
-        if lmList[rightTipIds[id]][1] > lmList[rightTipIds[id] - 3][1]:
+        if lm_list[rightTipIds[id]][1] > lm_list[rightTipIds[id] - 3][1]:
             return False
     return True
 
-def isQ(lmList, pos):
+def isQ(lm_list, pos):
     if pos[Z] == X:
         return False
     if pos[Y][0] > 0:
@@ -419,108 +277,108 @@ def isQ(lmList, pos):
     if pos[Y][1] > 0:
         return False
     # for id in range(0, 2):
-    #     if lmList[rightTipIds[id]][1] < lmList[rightTipIds[id] - 2][1]:
+    #     if lm_list[rightTipIds[id]][1] < lm_list[rightTipIds[id] - 2][1]:
     #         return False
     # for id in range(2, 5):
-    #     if lmList[rightTipIds[id]][1] > lmList[rightTipIds[id] - 3][1]:
+    #     if lm_list[rightTipIds[id]][1] > lm_list[rightTipIds[id] - 3][1]:
     #         return False
     return True
 
-def isR(lmList, pos):
+def isR(lm_list, pos):
     if pos[Z] == X:
         return False
-    if lmList[rightTipIds[1]][1] > lmList[rightTipIds[2]][1]:
+    if lm_list[rightTipIds[1]][1] > lm_list[rightTipIds[2]][1]:
         return False
     for id in range(3, 5):
-        if lmList[rightTipIds[id]][2] < lmList[rightTipIds[id] - 3][2]:
+        if lm_list[rightTipIds[id]][2] < lm_list[rightTipIds[id] - 3][2]:
             return False
     for id in range(1, 3):
-        if lmList[rightTipIds[id]][2] > lmList[rightTipIds[id] - 3][2]:
+        if lm_list[rightTipIds[id]][2] > lm_list[rightTipIds[id] - 3][2]:
             return False
     return True
 
-def isS(lmList, pos):
+def isS(lm_list, pos):
     if pos[Z] == X:
         return False
-    if lmList[rightTipIds[0] - 2][2] > lmList[rightTipIds[3]][2]:
+    if lm_list[rightTipIds[0] - 2][2] > lm_list[rightTipIds[3]][2]:
         return False
     for id in range(1, 5):
-        if lmList[rightTipIds[id]][2] < lmList[rightTipIds[id] - 3][2]:
+        if lm_list[rightTipIds[id]][2] < lm_list[rightTipIds[id] - 3][2]:
             return False
     return True
 
-def isT(lmList, pos):
+def isT(lm_list, pos):
     if pos[Z] == X:
         return False
-    if lmList[rightTipIds[1]][1] < lmList[rightTipIds[2]][1]:
+    if lm_list[rightTipIds[1]][1] < lm_list[rightTipIds[2]][1]:
         return False
-    if lmList[rightTipIds[0]][1] > lmList[rightTipIds[1] - 2][1]:
+    if lm_list[rightTipIds[0]][1] > lm_list[rightTipIds[1] - 2][1]:
         return False
     for id in range(1, 2):
-        if lmList[rightTipIds[0]][2] > lmList[rightTipIds[id]][2]:
+        if lm_list[rightTipIds[0]][2] > lm_list[rightTipIds[id]][2]:
             return False
-    if lmList[rightTipIds[0]][1] < lmList[rightTipIds[2] - 2][1]:
+    if lm_list[rightTipIds[0]][1] < lm_list[rightTipIds[2] - 2][1]:
         return False
-    if lmList[rightTipIds[0]][2] > lmList[rightTipIds[4] - 1][2]:
+    if lm_list[rightTipIds[0]][2] > lm_list[rightTipIds[4] - 1][2]:
         return False
     return True
 
-def isU(lmList, pos):
+def isU(lm_list, pos):
     if pos[Z] == X:
         return False
     for id in range(1, 3):
-        if lmList[rightTipIds[id]][2] > lmList[rightTipIds[id] - 3][2]:
+        if lm_list[rightTipIds[id]][2] > lm_list[rightTipIds[id] - 3][2]:
             return False
     for id in range(3, 5):
-        if lmList[rightTipIds[id]][2] < lmList[rightTipIds[id] - 3][2]:
+        if lm_list[rightTipIds[id]][2] < lm_list[rightTipIds[id] - 3][2]:
             return False
     return True
 
-def isV(lmList, pos):
+def isV(lm_list, pos):
     if pos[Z] == X:
         return False
     for id in range(1, 3):
-        if lmList[rightTipIds[id]][2] > lmList[rightTipIds[id] - 3][2]:
+        if lm_list[rightTipIds[id]][2] > lm_list[rightTipIds[id] - 3][2]:
             return False
     for id in range(3, 5):
-        if lmList[rightTipIds[id]][2] < lmList[rightTipIds[id] - 2][2]:
+        if lm_list[rightTipIds[id]][2] < lm_list[rightTipIds[id] - 2][2]:
             return False
     return True
 
-def isW(lmList, pos):
+def isW(lm_list, pos):
     if pos[Z] == X:
         return False
     for id in range(1, 4):
-        if lmList[rightTipIds[id]][2] > lmList[rightTipIds[id] - 3][2]:
+        if lm_list[rightTipIds[id]][2] > lm_list[rightTipIds[id] - 3][2]:
             return False
     for id in range(4, 5):
-        if lmList[rightTipIds[id]][2] < lmList[rightTipIds[id] - 3][2]:
+        if lm_list[rightTipIds[id]][2] < lm_list[rightTipIds[id] - 3][2]:
             return False
     return True
 
-def isX(lmList, pos):
+def isX(lm_list, pos):
     if pos[Z] == X:
         return False
     # if pos[Y][1] < 0:
     #     return False
-    if lmList[rightTipIds[1]][2] < lmList[rightTipIds[1] - 1][2]:
+    if lm_list[rightTipIds[1]][2] < lm_list[rightTipIds[1] - 1][2]:
             return False
     for id in range(2, 5):
-        if lmList[rightTipIds[id]][2] < lmList[rightTipIds[id] - 3][2]:
+        if lm_list[rightTipIds[id]][2] < lm_list[rightTipIds[id] - 3][2]:
             return False
     return True
 
-def isY(lmList, pos):
-    if lmList[rightTipIds[0]][2] > lmList[rightTipIds[0] - 3][2]:
+def isY(lm_list, pos):
+    if lm_list[rightTipIds[0]][2] > lm_list[rightTipIds[0] - 3][2]:
         return False
-    if lmList[rightTipIds[4]][2] > lmList[rightTipIds[4] - 3][2]:
+    if lm_list[rightTipIds[4]][2] > lm_list[rightTipIds[4] - 3][2]:
         return False
     for id in range(1, 4):
-        if lmList[rightTipIds[id]][2] < lmList[rightTipIds[id] - 3][2]:
+        if lm_list[rightTipIds[id]][2] < lm_list[rightTipIds[id] - 3][2]:
             return False
     return True
 
-def isZ(lmList, pos):
+def isZ(lm_list, pos):
     if pos[Z] == X:
         return False
     if pos[X][0] < 0:
@@ -528,8 +386,8 @@ def isZ(lmList, pos):
     if pos[Y][1] < 0:
         return False
     for id in range(2, 5):
-        if lmList[rightTipIds[id]][2] < lmList[rightTipIds[id] - 3][2]:
+        if lm_list[rightTipIds[id]][2] < lm_list[rightTipIds[id] - 3][2]:
             return False
-    if lmList[rightTipIds[0]][1] > lmList[rightTipIds[2] - 2][1]:
+    if lm_list[rightTipIds[0]][1] > lm_list[rightTipIds[2] - 2][1]:
             return False
     return True

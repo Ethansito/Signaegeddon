@@ -1,22 +1,16 @@
-# import os
-# os.environ["OPENCV_VIDEOIO_MSMF_ENABLE_HW_TRANSFORMS"] = "0"
 import cv2 as cv
 import mediapipe as mp
 
 
 class handDetector():
     def __init__(self, mode=False, maxHands=2, detectionCon = 0.5, trackCon = 0.5):
-#  static_image_mode=False,
-#  max_num_hands=2,
-#  min_detection_confidence=0.5,
-#  min_tracking_confidence=0.5):
+
         self.mode = mode
         self.maxHands = maxHands
         self.detectionCon = detectionCon
         self.trackCon = trackCon
 
         self.leftLocked = True
-
 
         self.mpHands = mp.solutions.hands
         #Temporarily removed parameters to work code
@@ -90,36 +84,3 @@ class handDetector():
 
         return sorted(lmList, key=lambda index: index[0])
         # return lmList
-    
-# def main():
-#     pTime = 0
-#     cTime = 0
-#     cap = cv.VideoCapture(0, cv.CAP_DSHOW)
-#     detector = handDetector()
-
-#     while True:
-#         success, img = cap.read()
-#         img = detector.findHands(img)
-#         lmList = detector.findPosition(img)
-#         if len(lmList) != 0:
-#             print(lmList[4])
-#         # if len(lmList) > 21:
-#         #     print(lmList[39])
-
-#         cTime = time.time()
-#         fps = 1/(cTime-pTime)
-#         pTime = cTime
-
-#         if success:
-#             cv.putText(img,str(int(fps)),(10,70), cv.FONT_HERSHEY_COMPLEX,1, (255,0,255),1)
-#             cv.imshow('Image', img)
-
-#         if cv.waitKey(20) &  0xFF==ord('d'):
-#             break
-
-#     cap.release()
-#     cv.destroyAllWindows()
-
-
-# if __name__ == "__main__":
-#     main()
