@@ -54,7 +54,7 @@ if __name__ == "__main__":
     player_rect.inflate_ip(-30, -30)
 
     # Score/Health
-    health = 3
+    health = 12
     scoreboard = GameObjects.Scoreboard(health)
     scoreboard_text = pygame.font.Font(None, 100).render("Score\n    " + str(scoreboard.score), True, "white")
 
@@ -123,28 +123,30 @@ if __name__ == "__main__":
                     if scoreboard.full_hearts == 0:
                         running = False
                     continue
-                dist_x = player_pos.x - asteroid.asteroid_rect.centerx
-                dist_y = player_pos.y - asteroid.asteroid_rect.centery
 
-                # check if asteroid is ready to move
-                asteroid.ticker += 1
-                if asteroid.ticker * asteroid.speed < 1:
-                    continue
-                movement = int(asteroid.ticker * asteroid.speed)
-                asteroid.ticker = 0
+                # Calculate new position of asteroid
+                dist_x = player_pos.x - asteroid.true_loc[0]
+                dist_y = player_pos.y - asteroid.true_loc[1]
+                dist_x_abs = abs(dist_x)
+                dist_y_abs = abs(dist_y)
+
+                speed_x = dist_x_abs / (dist_y_abs + dist_x_abs) * asteroid.speed
+                speed_y = dist_y_abs / (dist_y_abs + dist_x_abs) * asteroid.speed
 
                 if dist_x > 0:
-                    asteroid.asteroid_rect.centerx += movement
+                    asteroid.true_loc[0] += speed_x
                 elif dist_x < 0:
-                    asteroid.asteroid_rect.centerx -= movement
+                    asteroid.true_loc[0] -= speed_x
 
                 if dist_y > 0:
-                    asteroid.asteroid_rect.centery += movement
+                    asteroid.true_loc[1] += speed_y
                 elif dist_y < 0:
-                    asteroid.asteroid_rect.centery -= movement
+                    asteroid.true_loc[1] -= speed_y
+
+                asteroid.asteroid_rect.centerx = round(asteroid.true_loc[0])
+                asteroid.asteroid_rect.centery = round(asteroid.true_loc[1])
             if explosion: text = ""
         else:
-            print("Reached Game Over")
             screen.fill("black")
             game_over_text = pygame.font.Font(None, 300).render("GAME OVER", True, "white")
             game_over_rect = game_over_text.get_rect(center=(640, 150))

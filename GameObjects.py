@@ -9,7 +9,7 @@ class Asteroid:
         self.asteroid_surface.set_colorkey((255, 255, 255))
         self.asteroid_rect = self.asteroid_surface.get_rect()
         self.asteroid_text = pygame.font.Font(None, 50).render(word, True, "white")
-        self.ticker = 0
+        self.true_loc : list[float] = [0, 0]
 
     # Pick coordinates outside the screen for the asteroid to spawn
     # Then create rect for better blit
@@ -30,6 +30,7 @@ class Asteroid:
             x = 1380
             y = rand.randint(-100, 900)
         self.asteroid_rect = self.asteroid_surface.get_rect(center=(x, y))
+        self.true_loc = [self.asteroid_rect.centerx, self.asteroid_rect.centery]
         asteroids.append(self)
 
     def explode(self):
