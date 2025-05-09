@@ -53,8 +53,12 @@ if __name__ == "__main__":
     player_rect = player_surf.get_rect(center=player_pos)
     player_rect.inflate_ip(-30, -30)
 
+    bg_music = pygame.mixer.Sound("Sounds/Neutrin05 - Dystopia.mp3")
+    bg_music.set_volume(0.5)
+    bg_music.play(-1)
+
     # Score/Health
-    health = 12
+    health = 1
     scoreboard = GameObjects.Scoreboard(health)
     scoreboard_text = pygame.font.Font(None, 100).render("Score\n    " + str(scoreboard.score), True, "white")
 

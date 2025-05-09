@@ -19,3 +19,12 @@ those asteroids will be destroyed, and the word will clear itself.
 If you have made a typo and need to clear the word, remove
 your right hand from the camera's view and form a fist with your
 left hand as if locking in a letter. 
+
+## Credits
+Song: Dystopia
+Composer: Neutrin05
+Website: https://www.youtube.com/channel/UCKT4pTYebqwd11hd6eTjahw
+License: Creative Commons (BY 3.0) https://creativecommons.org/licenses/by/3.0/
+Music powered by BreakingCopyright: https://breakingcopyright.com
+
+Sound Effect by <a href="https://pixabay.com/users/driken5482-45721595/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=236678">Driken Stan</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=236678">Pixabay</a>

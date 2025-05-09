@@ -10,6 +10,8 @@ class Asteroid:
         self.asteroid_rect = self.asteroid_surface.get_rect()
         self.asteroid_text = pygame.font.Font(None, 50).render(word, True, "white")
         self.true_loc : list[float] = [0, 0]
+        self.explode_sound = pygame.mixer.Sound("Sounds/retro-explode-1-236678.mp3")
+        self.explode_sound.set_volume(2)
 
     # Pick coordinates outside the screen for the asteroid to spawn
     # Then create rect for better blit
@@ -35,6 +37,7 @@ class Asteroid:
 
     def explode(self):
         asteroids.remove(self)
+        self.explode_sound.play()
 
 asteroids: list[Asteroid] = []
 hearts_dict: dict[pygame.Surface, pygame.Rect] = {}
